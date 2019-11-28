@@ -1,0 +1,2 @@
+phpcs:
+	./vendor/bin/phpcs .

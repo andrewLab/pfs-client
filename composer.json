@@ -1,0 +1,21 @@
+{
+  "name": "andrew-lab/pfs-client",
+  "description": "PHP Client to integrate with Prepaid Financial Services Api",
+  "type": "library",
+  "require": {
+    "ext-soap": "*",
+    "ext-simplexml": "*",
+    "robgridley/simple-xml-mapper": "^1.0"
+  },
+  "autoload": {
+    "psr-0": {
+      "PFS\\": "src/"
+    }
+  },
+  "config": {
+    "optimize-autoloader": true
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.5"
+  }
+}
