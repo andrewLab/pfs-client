@@ -2,9 +2,9 @@
 
 namespace PFS\Api\CardIssue;
 
-use PFS\Api\Request as BaseRequest;
+use PFS\Api\Request;
 
-class CardIssueRequest extends BaseRequest
+class CardIssueRequest extends Request
 {
     /**
      * Required fields.
