@@ -2,9 +2,9 @@
 
 namespace PFS\Api\CardInquiry;
 
-use PFS\Api\Request as BaseRequest;
+use PFS\Api\Request;
 
-class Request extends BaseRequest
+class CardInquiryRequest extends Request
 {
     /**
      * Required fields.
@@ -19,6 +19,6 @@ class Request extends BaseRequest
 
     public function getResponseClass(): string
     {
-        return Response::class;
+        return CardInquiryResponse::class;
     }
 }

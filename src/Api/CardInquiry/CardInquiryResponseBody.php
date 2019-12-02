@@ -3,7 +3,7 @@
 
 namespace PFS\Api\CardInquiry;
 
-class ResponseBody
+class CardInquiryResponseBody
 {
     /** @var CardInfo */
     public $cardinfo;

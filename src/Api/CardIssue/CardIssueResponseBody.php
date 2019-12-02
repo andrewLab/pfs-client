@@ -2,7 +2,7 @@
 
 namespace PFS\Api\CardIssue;
 
-class ResponseBody
+class CardIssueResponseBody
 {
     /** @var int */
     public $Cardholderid;

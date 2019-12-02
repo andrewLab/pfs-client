@@ -4,7 +4,7 @@ namespace PFS\Api\CardIssue;
 
 use PFS\Api\Request as BaseRequest;
 
-class Request extends BaseRequest
+class CardIssueRequest extends BaseRequest
 {
     /**
      * Required fields.
@@ -71,6 +71,6 @@ class Request extends BaseRequest
 
     public function getResponseClass(): string
     {
-        return Response::class;
+        return CardIssueResponse::class;
     }
 }
