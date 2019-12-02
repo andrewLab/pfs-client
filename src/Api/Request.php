@@ -35,8 +35,13 @@ abstract class Request
     public function getPayload()
     {
         return $this->arrayToXml([
-            $this->getSignature() => $this->toArray()
+            $this->getPayloadEntityName() => $this->toArray()
         ]);
+    }
+
+    public function getPayloadEntityName()
+    {
+        return $this->getSignature();
     }
 
     /**
