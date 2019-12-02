@@ -28,7 +28,7 @@ class Mapper
         return $this->mapper->map($xml, $class);
     }
 
-    public function registerCustomTypes()
+    private function registerCustomTypes()
     {
         $this->mapper->addType(CardPan::class, function ($xml) {
             $cardPan = new CardPan();
