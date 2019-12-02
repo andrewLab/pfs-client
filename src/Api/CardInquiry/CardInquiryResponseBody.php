@@ -1,6 +1,5 @@
 <?php
 
-
 namespace PFS\Api\CardInquiry;
 
 class CardInquiryResponseBody

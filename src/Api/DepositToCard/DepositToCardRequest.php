@@ -9,7 +9,7 @@ class DepositToCardRequest extends Request
     /**
      * Required fields.
      */
-    /** @var string */
+    /** @var int */
     public $Cardholderid;
     /** @var int */
     public $Amount;

@@ -9,7 +9,7 @@ class CardInquiryRequest extends Request
     /**
      * Required fields.
      */
-    /** @var string */
+    /** @var int */
     public $Cardholderid;
 
     public function getSignature(): string
