@@ -2,9 +2,12 @@
 
 namespace PFS;
 
+use PFS\Exceptions\CommunicationException;
+use PFS\Exceptions\ConnectivityException;
 use PFS\Api\Mapper;
 use PFS\Api\Request;
 use PFS\Api\Response;
+use PFS\Exceptions\InvalidResponseException;
 use SimpleXMLElement;
 use SoapClient;
 use SoapFault;
@@ -52,13 +55,24 @@ class Client
     /**
      * @param Request $request
      * @return Response
-     * @throws SoapFault
+     * @throws CommunicationException
      */
     public function makeRequest(Request $request): Response
     {
-        $responseRaw = $this->soapCall($request->getId(), $request->getSignature(), $request->getPayload());
+        try {
+            $responseRaw = $this->soapCall($request->getId(), $request->getSignature(), $request->getPayload());
+        } catch (ConnectivityException | InvalidResponseException $e) {
+            throw new CommunicationException($e->getMessage());
+        }
 
-        $response = $this->mapper->map($responseRaw, $request->getResponseClass());
+        try {
+            $response = $this->mapper->map($responseRaw, $request->getResponseClass());
+            if (!$response) {
+                throw new InvalidResponseException();
+            }
+        } catch (\Exception $e) {
+            throw new CommunicationException("Response mapping failed");
+        }
 
         $response->setRequestId($request->getId());
 
@@ -70,7 +84,8 @@ class Client
      * @param string $APISignature
      * @param string $Data
      * @return SimpleXMLElement
-     * @throws SoapFault
+     * @throws ConnectivityException
+     * @throws InvalidResponseException
      */
     private function soapCall(string $MessageID, string $APISignature, string $Data): SimpleXMLElement
     {
@@ -84,13 +99,29 @@ class Client
             ]
         ];
 
-        $client = new SoapClient($this->wsdl, [
-            'trace' => true,
-            'encoding' => 'utf-8',
-        ]);
+        try {
+            $client = new SoapClient($this->wsdl, [
+                'encoding' => 'utf-8',
+            ]);
+        } catch (SoapFault $e) {
+            throw new ConnectivityException($e->getMessage());
+        }
 
-        $rawResponse = $client->__soapCall('Process', $payload);
+        try {
+            $rawResponse = $client->__soapCall('Process', $payload);
+        } catch (\Exception $e) {
+            throw new ConnectivityException($e->getMessage());
+        }
+
+        if (!property_exists($rawResponse, 'ProcessResult') || empty($rawResponse->ProcessResult)) {
+            throw new InvalidResponseException("Response does not contain ProcessResult");
+        }
+
         $response = simplexml_load_string($rawResponse->ProcessResult);
+
+        if (!$response) {
+            throw new InvalidResponseException("Response contains invalid xml");
+        }
 
         return $response;
     }
