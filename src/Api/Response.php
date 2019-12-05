@@ -24,4 +24,9 @@ abstract class Response
     {
         return $this->requestId;
     }
+
+    public function isError():bool
+    {
+        return 0 !== $this->ErrorCode;
+    }
 }
