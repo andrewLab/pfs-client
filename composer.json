@@ -3,6 +3,7 @@
   "description": "PHP Client to integrate with Prepaid Financial Services Api",
   "type": "library",
   "require": {
+    "php": "^7.1.0",
     "ext-soap": "*",
     "ext-simplexml": "*",
     "robgridley/simple-xml-mapper": "^1.0"
