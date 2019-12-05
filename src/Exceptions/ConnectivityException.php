@@ -1,6 +1,5 @@
 <?php
 
-
 namespace PFS\Exceptions;
 
 class ConnectivityException extends PfsException
