@@ -32,10 +32,10 @@ abstract class Request
 
     abstract public function getResponseClass(): string;
 
-    public function getPayload()
+    public function getPayload($keepEmptyValues = false)
     {
         return $this->arrayToXml([
-            $this->getPayloadEntityName() => $this->toArray()
+            $this->getPayloadEntityName() => $this->toArray($keepEmptyValues)
         ]);
     }
 

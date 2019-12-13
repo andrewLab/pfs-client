@@ -2,6 +2,7 @@
 
 namespace PFS;
 
+use Exception;
 use PFS\Exceptions\CommunicationException;
 use PFS\Exceptions\ConnectivityException;
 use PFS\Api\Mapper;
@@ -70,7 +71,7 @@ class Client
             if (!$response) {
                 throw new InvalidResponseException();
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new CommunicationException("Response mapping failed");
         }
 
@@ -101,7 +102,7 @@ class Client
 
         try {
             $client = new SoapClient($this->wsdl, [
-                'encoding' => 'utf-8',
+                'encoding' => 'utf-8'
             ]);
         } catch (SoapFault $e) {
             throw new ConnectivityException($e->getMessage());
@@ -109,7 +110,7 @@ class Client
 
         try {
             $rawResponse = $client->__soapCall('Process', $payload);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new ConnectivityException($e->getMessage());
         }
 
