@@ -11,7 +11,7 @@ class CardInfo
     public $CardType;
     /** @var int */
     public $AccountNumber;
-    /** @var int */
+    /** @var string */
     public $CardStatus;
     /** @var int */
     public $PinTriesExceeded;
